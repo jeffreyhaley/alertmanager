@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "alertaggregator.fullname" . }}-default
+data:
+  default.yaml: |-
+    {{- with .Values.config.grafana }}
+    grafana:
+        server:
+            endpoint: http://{{ .host }}:{{.port}}/
+    {{- end }}
+    core:
+        host: "localhost"
+        port: 80

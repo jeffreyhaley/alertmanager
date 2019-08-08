@@ -1,0 +1,122 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: PBR Alert Manager API
+  contact: {}
+host: localhost:80
+basePath: /alertaggregator/api/v1
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /alerts:
+    get:
+      description: Get a list of alerts
+      summary: getAlerts
+      tags:
+      - alert
+      operationId: AlertsGet
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: Get alerts response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/gettableAlert'
+          headers: {}
+        400:
+          description: BadRequest
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: The specified resource was not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: InternalServerError
+          schema:
+            $ref: '#/definitions/Error'
+  /rules:
+    get:
+      description: Get a list of the alerts definition
+      summary: getRules
+      tags:
+      - rule
+      operationId: RulesGet
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: Get rules response response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/gettableAlert'
+          headers: {}
+        400:
+          description: BadRequest
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: The specified resource was not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: InternalServerError
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Error:
+    title: Error
+    type: object
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    required:
+    - code
+    - message
+  gettableAlert:
+    title: gettableAlert
+    type: object
+    properties:
+      name:
+        example: bms-sla
+        type: string
+      instance:
+        example: multitenant-behavioralmetricstore-56c5d56c5f-l54hp
+        type: string
+      severity:
+        $ref: '#/definitions/Severity'
+      firedAt:
+        example: 2018-07-04T20:27:12.60602144+02:00
+        type: string
+        format: date-time
+      description:
+        example: BMS SLA
+        type: string
+  Severity:
+    title: Severity
+    example: critical
+    type: string
+    enum:
+    - critical
+    - major
+    - minor
+    - notice
+    - healthy
+tags:
+- name: alert
+  description: ''
+- name: rule
+  description: ''

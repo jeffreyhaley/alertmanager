@@ -1,0 +1,327 @@
+{
+	"info": {
+		"_postman_id": "81bffc14-f5e7-472f-a869-4a84867fd1eb",
+		"name": "App.AlertAggregator.Functional",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get Alerts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d13710c6-00c2-429a-9cbb-a2de89f81ef8",
+						"exec": [
+							"pm.test(\"Response status should be 200 OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/alerts",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"alerts"
+					]
+				},
+				"description": "Get a list of alerts"
+			},
+			"response": [
+				{
+					"name": "BadRequest",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/alerts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<string>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "The specified resource was not found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/alerts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<string>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "InternalServerError",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/alerts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<string>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Get alerts response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/alerts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"alerts"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n {\n  \"name\": \"<string>\",\n  \"instance\": \"<string>\",\n  \"severity\": \"<string>\",\n  \"firedAt\": \"<dateTime>\",\n  \"description\": \"<string>\"\n },\n {\n  \"name\": \"<string>\",\n  \"instance\": \"<string>\",\n  \"severity\": \"<string>\",\n  \"firedAt\": \"<dateTime>\",\n  \"description\": \"<string>\"\n }\n]"
+				}
+			]
+		},
+		{
+			"name": "get Rules",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dfa3a70e-f96f-4523-be89-2fe7e09b655f",
+						"exec": [
+							"pm.test(\"Response status should be 200 OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/rules",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"rules"
+					]
+				},
+				"description": "Get a list of the alerts definition"
+			},
+			"response": [
+				{
+					"name": "The specified resource was not found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/rules",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"rules"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<string>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "InternalServerError",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/rules",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"rules"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<string>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "BadRequest",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/rules",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"rules"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"<string>\",\n \"message\": \"<string>\"\n}"
+				},
+				{
+					"name": "Get rules response response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/rules",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"rules"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n {\n  \"name\": \"<string>\",\n  \"instance\": \"<string>\",\n  \"severity\": \"<string>\",\n  \"firedAt\": \"<dateTime>\",\n  \"description\": \"<string>\"\n },\n {\n  \"name\": \"<string>\",\n  \"instance\": \"<string>\",\n  \"severity\": \"<string>\",\n  \"firedAt\": \"<dateTime>\",\n  \"description\": \"<string>\"\n }\n]"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5a5a8246-3417-46e3-b46d-e4edf4eeda5c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "51454fc4-05e2-4f3f-b8e0-6a65f0177c41",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "24ed37f9-be6d-4085-9c41-ff4084917b97",
+			"key": "baseUrl",
+			"value": "http://localhost:9990/alertaggregator/api/v1",
+			"type": "string"
+		}
+	]
+}

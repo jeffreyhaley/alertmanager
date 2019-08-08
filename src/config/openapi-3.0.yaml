@@ -1,0 +1,106 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: PBR Alert Manager API
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:9990/alertaggregator/api/v1
+
+paths:
+  /alerts:
+    get:
+      tags:
+        - alert
+      operationId: getAlerts
+      description: Get a list of alerts
+      responses:
+        '200':
+          description: Get alerts response
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/schemas/gettableAlerts"
+        '404':
+          $ref: '#/components/responses/NotFound' 
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /rules:
+    get:
+      tags:
+        - rule
+      operationId: getRules
+      description: Get a list of the alerts definition
+      responses:
+        '200':
+          description: Get rules response response
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/schemas/gettableAlerts"
+        '404':
+          $ref: '#/components/responses/NotFound' 
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'          
+          
+components:
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: BadRequest
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'    
+    InternalServerError:
+      description: InternalServerError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'             
+  schemas:
+    # Schema for error response body
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+    gettableAlerts:
+      type: array
+      items:
+        $ref: '#/components/schemas/gettableAlert'
+    gettableAlert:
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+              example: "bms-sla"
+            instance:
+              type: string
+              example: "multitenant-behavioralmetricstore-56c5d56c5f-l54hp"
+            severity:
+              type: string
+              enum: ['critical', 'major', 'minor', 'notice', 'healthy']
+              example: "critical"
+            firedAt:
+              type: string
+              format: date-time
+              example: "2018-07-04T20:27:12.60602144+02:00"
+            description:
+              type: string
+              example: "BMS SLA"

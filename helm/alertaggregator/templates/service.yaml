@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "alertaggregator.fullname" . }}
+  labels:
+    app: {{ template "alertaggregator.name" . }}
+    chart: {{ template "alertaggregator.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http-{{ template "alertaggregator.fullname" . }}
+  selector:
+    app: {{ template "alertaggregator.name" . }}
+    release: {{ .Release.Name }}
+    
+    

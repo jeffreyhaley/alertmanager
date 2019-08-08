@@ -1,0 +1,67 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "alertaggregator.fullname" . }}
+  labels:
+    app: {{ template "alertaggregator.name" . }}
+    chart: {{ template "alertaggregator.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "alertaggregator.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "alertaggregator.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      serviceAccountName: {{ include "alertaggregator.fullname" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.repository }}:latest
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+          livenessProbe:
+            exec:
+              command:
+              - curl
+              - -f
+              - http://localhost:80/alertaggregator/api/v1/alerts
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+              - curl
+              - -f
+              - http://localhost:80/alertaggregator/api/v1/alerts
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          volumeMounts:
+          - name: "default"
+            mountPath: "/app/config/default.yaml"
+            subPath: "default.yaml"
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+      volumes:
+      - name: "default"
+        configMap:
+          name: {{ template "alertaggregator.fullname" . }}-default

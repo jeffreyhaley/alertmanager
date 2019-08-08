@@ -1,0 +1,28 @@
+{{if .Values.global.istio.enabled }}
+apiVersion: "rbac.istio.io/v1alpha1"
+kind: ServiceRoleBinding
+metadata:
+  name: bind-{{ include "alertaggregator.fullname" . }}
+spec:
+  subjects:
+  # We allow connection from istio-system so the ingress gateway can talk to AA
+  - properties:
+      source.namespace: "istio-system"
+  - properties:
+      source.namespace: "bootstrap"
+  roleRef:
+    kind: ServiceRole
+    name: {{ include "alertaggregator.fullname" . }}
+---
+apiVersion: "rbac.istio.io/v1alpha1"
+kind: ServiceRoleBinding
+metadata:
+  name: bind-{{ include "alertaggregator.fullname" . }}-grafana
+  namespace: bootstrap
+spec:
+  subjects:
+  - user: "cluster.local/ns/{{ .Release.Namespace }}/sa/{{ include "alertaggregator.fullname" . }}"
+  roleRef:
+    kind: ServiceRole
+    name: {{ include "alertaggregator.fullname" . }}-grafana
+{{ end }}

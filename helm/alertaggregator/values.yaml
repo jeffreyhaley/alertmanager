@@ -1,0 +1,42 @@
+global:
+  istio:
+    # Enable to deploy istio objects. Requires Istio to be already installed on the cluster
+    enabled: true
+  pairing:
+    app:
+      replicaCount: 1
+
+config:
+  grafana:
+    host: bootstrap-grafana.bootstrap.svc.cluster.local
+    port: 80
+
+podAnnotations:
+  co.elastic.metrics/hosts: ${data.host}:9100
+  co.elastic.metrics/metricsets: collector
+  co.elastic.metrics/module: prometheus
+  co.elastic.metrics/period: 10s
+  prometheus.io/scrape: 'true'
+  prometheus.io/port: '9100'      
+
+image:
+  registry: artifactory.mattersight.local:6005
+  repository: pairing/alertaggregator
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  limits:
+   cpu: 100m
+   memory: 128Mi
+  requests:
+   cpu: 100m
+   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

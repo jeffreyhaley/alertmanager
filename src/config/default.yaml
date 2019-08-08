@@ -1,0 +1,9 @@
+prometheus:
+    server:
+        endpoint: "http://localhost:9090/"
+grafana:
+    server:
+        endpoint: "http://localhost:3000/"
+core:
+    host: "localhost"
+    port: 3001
